@@ -29,6 +29,16 @@ private:
     dataType getData() { return this->data; }
   };
 
+  class sentinel : node
+  {
+  };
+
+  class boduNode : node
+  {
+  private:
+    dataType data;
+  };
+
   node *head, *tail;
   unsigned long int size;
 
