@@ -1,52 +1,51 @@
-#include <string>
-using std::string;
+#include <iostream>
+#include "../dNode/dNode.hpp"
 
-typedef string dataType;
-
+template <typename T>
 class dbLinkedList
 {
 private:
-  class node
+  class sentinel : dNode<T>
   {
   private:
-    node *next;
-    node *prev;
-    dataType data;
+    unsigned long int size;
 
   public:
-    //Constructor and Destructor
-    node() : next(nullptr), prev(nullptr), data(NULL) {}
-    ~node();
+    sentinel() : size(0) {}
+    ~sentinel()
+    {
+      size = 0;
+    };
+
+    //manipulação de tamanho
+    void incrementSize() { this->size++; }
+    void decrementSize() { this->size--; }
+    unsigned long int getSize() { return this->size; }
 
     //Manipulação de ponteiros
-    void setNext(node *ptr);
-    void setPrev(node *ptr);
-    node *getNext() { return this->next; }
-    node *getPrev() { return this->prev; }
-
-    //Manipulação dos dados
-    void setData(dataType data);
-    dataType getData() { return this->data; }
+    void setFirst(dNode<T> *ptr) { this->setPrev(ptr); }
+    void setLast(dNode<T> *ptr) { this->setNext(ptr); }
+    dNode<T> *getFirst() { return this->getPrev(); }
+    dNode<T> *getLast() { return this->getNext(); }
   };
-
-  class sentinel : node
-  {
-  };
-
-  class boduNode : node
-  {
-  private:
-    dataType data;
-  };
-
-  node *head, *tail;
-  unsigned long int size;
+  sentinel *header;
 
 public:
-  //Constructor and Destructor
-  dbLinkedList() : head(nullptr), tail(nullptr), size(0) {}
+  dbLinkedList() : header(new sentinel()) {}
   ~dbLinkedList();
 
-  //Insertions
-  dataType add(dataType data);
+  void test()
+  {
+    std::cout << header->getFirst();
+    std::cout << header->getLast();
+  }
+
+  //Funções de controle
+  bool isEmpty() { return (header->getSize() == 0); };
+
+  //Inserções
+  T add(T data);
+
+  //Printar lista
+  void printList();
 };

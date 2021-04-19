@@ -1,3 +1,5 @@
+#include <string>
+
 template <typename T>
 class dNode
 {
@@ -19,11 +21,10 @@ public:
   void setData(T inf) { this->data = inf; }
   T getData() { return this->data; }
 };
-/*
-// All types allowed
-template class dNode<char>;
-template class dNode<int>;
-template class dNode<short>;
-template class dNode<float>;
-template class dNode<double>;
-template class dNode<std::string>;*/
+
+template <typename T>
+dNode<T>::~dNode()
+{
+  next = nullptr;
+  prev = nullptr;
+}
