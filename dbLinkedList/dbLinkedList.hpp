@@ -45,7 +45,15 @@ public:
 
   //Inserções
   T add(T data);
+  T addAt(T data, int position);
+  T unshift(T data);
 
-  //Printar lista
-  void printList();
+  //Retirada
+  T remove();
+  T shift();
+  T removeAt(int index);
+  T removeSpecific(T data);
+
+  //printar a lista
+  void print();
 };
