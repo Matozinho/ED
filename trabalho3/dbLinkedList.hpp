@@ -1,6 +1,8 @@
 #include <iostream>
 #include "dNode.hpp"
 
+using namespace std;
+
 template <typename T>
 class dbLinkedList
 {
@@ -9,6 +11,7 @@ private:
   {
   private:
     unsigned long int size;
+    string routeName;
 
   public:
     sentinel() : size(0) {}
@@ -27,6 +30,10 @@ private:
     void setLast(dNode<T> *ptr) { this->setNext(ptr); }
     dNode<T> *getFirst() { return this->getPrev(); }
     dNode<T> *getLast() { return this->getNext(); }
+
+    //Manipulação routeName
+    void setRoute(string routeName) { this->routeName = routeName; }
+    string getRoute() { return this->routeName; }
   };
   sentinel *header;
 
@@ -51,4 +58,8 @@ public:
   //Funções de retorno
   T getAt(int index);
   void print();
+
+  //RouteData
+  void setRouteName(string routeName) { header->setRoute(routeName); }
+  string getRouteName() { return header->getRoute(); }
 };

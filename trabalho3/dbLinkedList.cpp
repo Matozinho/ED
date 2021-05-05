@@ -237,6 +237,7 @@ dbLinkedList<T>::~dbLinkedList()
   while (aux)
   {
     aux = header->getFirst()->getNext();
+    std::cout << header->getFirst()->getData() << std::endl;
     delete header->getFirst();
     header->setFirst(aux);
   }

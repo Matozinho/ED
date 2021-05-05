@@ -1,5 +1,5 @@
 #include <iostream>
-#include "dbLinkedList.hpp"
+#include "dbLinkedList.cpp"
 
 int main()
 {
@@ -12,23 +12,17 @@ int main()
   lista1->add(2);
   lista1->add(3);
   lista1->print();
-  lista1->removeSpecific(1);
-  lista1->print();
-  lista1->removeSpecific(2);
-  lista1->print();
-  lista1->removeSpecific(3);
-  lista1->print();
-  /*
+  std::cout << lista1->getAt(0) << std::endl;
+  std::cout << lista1->getAt(1) << std::endl;
+  std::cout << lista1->getAt(2) << std::endl;
+  std::cout << lista1->getAt(3) << std::endl;
+
   lista2->unshift("Para");
   lista2->add("Corno");
   lista2->print();
-  lista2->add("sem");
-  lista2->print();
-  lista2->add("Mae!");
-  lista2->print();
-  lista2->unshift("Seu");
-  lista2->print();
-  */
+  std::cout << lista2->getAt(0) << std::endl;
+  std::cout << lista2->getAt(1) << std::endl;
+  std::cout << lista2->getAt(2) << std::endl;
 
   delete lista1;
   delete lista2;
