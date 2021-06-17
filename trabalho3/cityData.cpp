@@ -22,7 +22,7 @@ public:
 
 ostream &operator<<(ostream &os, const cityData &F)
 {
-  os << "Cidade: " << F.city << " ~ Decrição: " << F.description;
+  os << "Cidade: " << F.city << "\nDecrição: " << F.description;
   return (os);
 }
 

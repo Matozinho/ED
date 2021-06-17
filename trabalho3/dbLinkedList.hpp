@@ -57,6 +57,7 @@ public:
 
   //Funções de retorno
   T getAt(int index);
+  int size() { return header->getSize(); }
   void print();
 
   //RouteData

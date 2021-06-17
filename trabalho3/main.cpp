@@ -44,7 +44,7 @@ void addCityInterface(dbLinkedList<cityData> *routeList)
   {
     system("clear");
     routeList->print();
-
+    cout << endl;
     cout << "Para encerrar o processo, digite um índice menor do que 1" << endl;
     cout << "Digite o índice em que deseja adicionar a cidade" << endl;
     cin >> index;
@@ -61,9 +61,38 @@ void addCityInterface(dbLinkedList<cityData> *routeList)
       data.setDescription(cityDescription);
 
       routeList->addAt(data, index);
-      cout << "Adicionada com sucesso" << endl;
+      cout << "Cidade adicionada com sucesso" << endl;
       getchar();
     }
+  } while (index > 0);
+
+  system("clear");
+  return;
+}
+
+void removeCityInterface(dbLinkedList<cityData> *routeList)
+{
+  int index;
+
+  do
+  {
+    system("clear");
+    routeList->print();
+    cout << endl;
+
+    cout << "Para encerrar o processo, digite um índice menor do que 1" << endl;
+    cout << "Digite o índice da cidade que deseja remover" << endl;
+    cin >> index;
+
+    if (index > 0)
+    {
+      routeList->removeAt(index);
+      system("clear");
+      getchar();
+      cout << "Cidade removida com sucesso!" << endl;
+      getchar();
+    }
+
   } while (index > 0);
 
   system("clear");
@@ -189,7 +218,14 @@ void routesManagementInterface(vector<dbLinkedList<cityData> *> *routes)
       break;
 
     case 4:
-      cout << "menu em construção" << endl;
+      if (routes->size())
+      {
+        printRoutesVector(routes);
+        int index;
+        cout << "Digite o índice da rota que deseja alterar" << endl;
+        cin >> index;
+        removeCityInterface(routes->at(index));
+      }
       break;
 
     case 5:
@@ -204,6 +240,47 @@ void routesManagementInterface(vector<dbLinkedList<cityData> *> *routes)
   } while (option);
 
   exit(0);
+}
+
+void travel(dbLinkedList<cityData> *routeList)
+{
+  int index = 0;
+  char option[3];
+
+  do
+  {
+    system("clear");
+    cout << "Utilize as setas esquerda e direita do Teclado para navegar" << endl;
+    cout << "-------------------------------------------" << endl;
+    cout << "      Você está em\n\n";
+    cout << "Cidade: " << routeList->getAt(index).getCity() << endl;
+    cout << "Descrição: " << routeList->getAt(index).getDescription() << endl;
+    cout << endl;
+    if (index > 0)
+      cout << "<- Voltar";
+    cout << "                            ";
+    if (index < routeList->size())
+      cout << "-> Próxima";
+    cout << endl;
+    cout << "-------------------------------------------" << endl;
+
+    if (index < routeList->size())
+    {
+      cin >> option;
+      getchar();
+
+      if (option[2] == 'C')
+        index++;
+      if (option[2] == 'D' && index > 0)
+        index--;
+    }
+
+  } while (index < routeList->size());
+
+  cout << "Você finalizou a Viagem!" << endl;
+  getchar();
+  system("clear");
+  return;
 }
 
 void mainInterface(vector<dbLinkedList<cityData> *> *routes)
@@ -231,7 +308,15 @@ void mainInterface(vector<dbLinkedList<cityData> *> *routes)
       break;
 
     case 2:
-      cout << "Menu em Construção" << endl;
+      system("clear");
+      printRoutesVector(routes);
+      if (routes->size())
+      {
+        int index;
+        cout << "Digite o índice da rota que deseja realizar" << endl;
+        cin >> index;
+        travel(routes->at(index));
+      }
       break;
 
     default:

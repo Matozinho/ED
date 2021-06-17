@@ -74,11 +74,11 @@ T dbLinkedList<T>::addAt(T data, int position)
 
     if (!aux->getPrev())
       header->setFirst(aux);
+
+    header->incrementSize();
   }
   else
     add(data);
-
-  header->incrementSize();
 
   return data;
 }
@@ -122,7 +122,6 @@ T dbLinkedList<T>::shift()
       aux->setPrev(nullptr);
 
     header->decrementSize();
-    std::cout << header->getSize() << "\n";
   }
 
   return removedData;

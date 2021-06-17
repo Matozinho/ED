@@ -74,11 +74,11 @@ T dbLinkedList<T>::addAt(T data, int position)
 
     if (!aux->getPrev())
       header->setFirst(aux);
+
+    header->incrementSize();
   }
   else
     add(data);
-
-  header->incrementSize();
 
   return data;
 }
@@ -122,7 +122,6 @@ T dbLinkedList<T>::shift()
       aux->setPrev(nullptr);
 
     header->decrementSize();
-    std::cout << header->getSize() << "\n";
   }
 
   return removedData;
@@ -208,22 +207,18 @@ template <typename T>
 void dbLinkedList<T>::print()
 {
   dNode<T> *cur;
-
+  int index = 0;
   cur = header->getFirst();
-
-  std::cout << "Inicio ->| ";
 
   while (cur)
   {
-    std::cout << cur->getData();
-    //Caso tenha próximo, imprime o separador
-    if (cur->getNext())
-      std::cout << " | ";
+    std::cout << "---------------" << index << "---------------" << std::endl;
+    std::cout << cur->getData() << std::endl;
+    std::cout << "-------------------------------" << std::endl;
 
+    index++;
     cur = cur->getNext();
   }
-
-  std::cout << " |<- Fim\n";
 }
 
 //=============Destrutor=============//
@@ -237,7 +232,6 @@ dbLinkedList<T>::~dbLinkedList()
   while (aux)
   {
     aux = header->getFirst()->getNext();
-    std::cout << header->getFirst()->getData() << std::endl;
     delete header->getFirst();
     header->setFirst(aux);
   }

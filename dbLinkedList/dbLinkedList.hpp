@@ -1,5 +1,5 @@
 #include <iostream>
-#include "dNode.hpp"
+#include "../dNode/dNode.hpp"
 
 template <typename T>
 class dbLinkedList
@@ -50,5 +50,6 @@ public:
 
   //Funções de retorno
   T getAt(int index);
+  int size() { return header->getSize(); }
   void print();
 };
