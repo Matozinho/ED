@@ -3,67 +3,53 @@
 #include <queue>
 
 template <typename T>
-BSTree<T> *BSTree<T>::insert(BSTree<T> *root, T data)
+BSTree<T> *BSTree<T>::insert(T data)
 {
-  if (!root)
+  if (!this)
     return new BSTree(data);
 
-  if (data > root->data)
-    root->right = insert(root->right, data);
+  if (data > this->data)
+    this->right = this->right->insert(data);
   else
-    root->left = insert(root->left, data);
+    this->left = this->left->insert(data);
 
-  return root;
+  return this;
 }
 
 template <typename T>
-void BSTree<T>::posOrder(BSTree<T> *root)
+void BSTree<T>::posOrder()
 {
-  if (root->left)
-    posOrder(root->left);
+  if (this->left)
+    this->left->posOrder();
 
-  if (root->right)
-    posOrder(root->right);
+  if (this->right)
+    this->right->posOrder();
 
-  std::cout << root->data << std::endl;
+  std::cout << this->data << std::endl;
   return;
 }
 
 template <typename T>
-void BSTree<T>::preOrder(BSTree<T> *root)
+void BSTree<T>::preOrder()
 {
-  std::cout << root->data << std::endl;
+  std::cout << this->data << std::endl;
 
-  if (root->left)
-    preOrder(root->left);
+  if (this->left)
+    this->left->preOrder();
 
-  if (root->right)
-    preOrder(root->right);
-
-  return;
-}
-
-template <typename T>
-void BSTree<T>::inOrder(BSTree<T> *root)
-{
-  if (root->left)
-    inOrder(root->left);
-
-  std::cout << root->data << std::endl;
-
-  if (root->right)
-    inOrder(root->right);
+  if (this->right)
+    this->right->preOrder();
 
   return;
 }
 
 template <typename T>
-void BSTree<T>::inLevel(BSTree<T> *root)
+void BSTree<T>::inLevel()
 {
   std::queue<BSTree<T> *> fila;
   BSTree<T> *popped;
 
-  fila.push(root);
+  fila.push(this);
   while (fila.size())
   {
     popped = fila.front();
@@ -81,42 +67,56 @@ void BSTree<T>::inLevel(BSTree<T> *root)
 }
 
 template <typename T>
-T BSTree<T>::greater(BSTree<T> *root)
+void BSTree<T>::inOrder()
+{
+  if (this->left)
+    this->left->inOrder();
+
+  std::cout << this->data << std::endl;
+
+  if (this->right)
+    this->right->inOrder();
+
+  return;
+}
+
+template <typename T>
+T BSTree<T>::greater()
 {
   T data;
 
-  if (root->right)
-    data = greater(root->right);
+  if (this->right)
+    data = this->right->greater();
 
   else
-    return root->data;
+    return this->data;
 
   return data;
 }
 
 template <typename T>
-T BSTree<T>::smaller(BSTree<T> *root)
+T BSTree<T>::smaller()
 {
   T data;
 
-  if (root->left)
-    data = smaller(root->left);
+  if (this->left)
+    data = this->left->smaller();
 
   else
-    return root->data;
+    return this->data;
 
   return data;
 }
 
 template <typename T>
-int BSTree<T>::height(BSTree<T> *root)
+int BSTree<T>::height()
 {
-  if (!root)
+  if (!this)
     return 0;
   else
   {
-    int heightLeft = height(root->left);
-    int heightRight = height(root->right);
+    int heightLeft = this->left->height();
+    int heightRight = this->right->height();
 
     if (heightLeft < heightRight)
       return (heightRight + 1);
@@ -126,56 +126,56 @@ int BSTree<T>::height(BSTree<T> *root)
 }
 
 template <typename T>
-BSTree<T> *BSTree<T>::find(BSTree<T> *root, T value)
+BSTree<T> *BSTree<T>::find(T value)
 {
-  if (!root || root->data == value)
-    return root;
+  if (!this || this->data == value)
+    return this;
 
-  if (value > root->data)
-    return find(root->right, value);
+  if (value > this->data)
+    return this->right->find(value);
   else
-    return find(root->left, value);
+    return this->left->find(value);
 }
 
 template <typename T>
-BSTree<T> *BSTree<T>::remove(BSTree<T> *root, T value)
+BSTree<T> *BSTree<T>::remove(T value)
 {
-  BSTree<T> *aux;
+  if (!this)
+  {
+    std::cout << "value not found" << std::endl;
+    return nullptr;
+  }
 
-  if (!root)
-    return root;
+  if (value < this->data)
+    this->left = this->left->remove(value);
 
-  if (value < root->data)
-    root->left = remove(root->left, value);
-
-  else if (value > root->data)
-    root->right = remove(root->right, value);
+  if (value > this->data)
+    this->right = this->right->remove(value);
 
   else
   {
-    if (!root->left)
+    BSTree<T> *aux;
+
+    if (!this->left)
     {
-      aux = root->right;
-      delete root->right;
-      return aux->right;
+      aux = this->right;
+      delete this;
+      return aux;
     }
 
-    else if (!root->right)
+    if (!this->right)
     {
-      aux = root->left;
-      delete root->left;
-      return aux->left;
+      aux = this->left;
+      delete this;
+      return aux;
     }
 
-    else
-    {
-      T substitute = smaller(root->right);
-      root->data = substitute;
-      root->right = remove(root->right, substitute);
-    }
+    int removed;
+    removed = this->right->smaller();
+    this->remove(removed);
+    this->data = removed;
   }
-
-  return root;
+  return this;
 }
 
 template class BSTree<int>;

@@ -18,7 +18,6 @@ int main()
   /*   
   tree->posOrder(tree);
   tree->preOrder(tree);
-  tree->inOrder(tree);
   cout << "extremes\n";
   cout << tree->greater(tree) << endl;
   cout << tree->smaller(tree) << endl;
@@ -26,8 +25,10 @@ int main()
   cout << tree->find(tree, -10) << endl;
   cout << tree->find(tree, 195) << endl;
   cout << tree->find(tree, 11) << endl;
-  tree->remove(tree, 15);
  */
+  tree->inOrder(tree);
+  tree->remove(tree, 2);
+  tree->inOrder(tree);
 
   delete tree;
 

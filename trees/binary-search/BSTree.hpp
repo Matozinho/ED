@@ -22,18 +22,18 @@ public:
   BSTree *getRight() { return this->right; } */
 
   //Algoritmos característiscos de árvore
-  BSTree *insert(BSTree *root, T data);
-  void inOrder(BSTree *root);
-  void inLevel(BSTree *root);
-  void preOrder(BSTree<T> *root);
-  void posOrder(BSTree<T> *root);
+  BSTree *insert(T data);
+  void inOrder();
+  void inLevel();
+  void preOrder();
+  void posOrder();
 
-  T greater(BSTree<T> *root);
-  T smaller(BSTree<T> *root);
+  T greater();
+  T smaller();
 
-  int height(BSTree<T> *root);
-  BSTree *find(BSTree<T> *root, T value);
-  BSTree *remove(BSTree<T> *root, T value);
+  int height();
+  BSTree *find(T value);
+  BSTree *remove(T value);
 };
 
 template <typename T>
