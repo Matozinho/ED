@@ -24,7 +24,7 @@ public:
   //Algoritmos característiscos de árvore
   BSTree *insert(BSTree *root, T data);
   void inOrder(BSTree *root);
-  /* void inLevel(BSTree *root); -> Implementar mais tarde*/
+  void inLevel(BSTree *root);
   void preOrder(BSTree<T> *root);
   void posOrder(BSTree<T> *root);
 

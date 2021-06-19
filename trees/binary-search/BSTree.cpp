@@ -58,6 +58,29 @@ void BSTree<T>::inOrder(BSTree<T> *root)
 }
 
 template <typename T>
+void BSTree<T>::inLevel(BSTree<T> *root)
+{
+  std::queue<BSTree<T> *> fila;
+  BSTree<T> *popped;
+
+  fila.push(root);
+  while (fila.size())
+  {
+    popped = fila.front();
+    fila.pop();
+
+    std::cout << popped->data << " ";
+
+    if (popped->left)
+      fila.push(popped->left);
+    if (popped->right)
+      fila.push(popped->right);
+  }
+
+  std::cout << std::endl;
+}
+
+template <typename T>
 T BSTree<T>::greater(BSTree<T> *root)
 {
   T data;
