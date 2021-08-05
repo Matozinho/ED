@@ -12,7 +12,7 @@ Stack<T>::Stack()
 template <typename T>
 Stack<T>::~Stack()
 {
-  Node<T> *aux;
+  Node *aux;
 
   while (this->top != nullptr)
   {
@@ -31,10 +31,10 @@ bool Stack<T>::isEmpty() const
 template <typename T>
 bool Stack<T>::isFull() const
 {
-  Node<T> *aux;
+  Node *aux;
   try
   {
-    aux = new Node<T>;
+    aux = new Node;
     delete aux;
     return false;
   }
@@ -49,7 +49,7 @@ void Stack<T>::push(T item)
 {
   if (!this->isFull())
   {
-    Node<T> *aux = new Node<T>;
+    Node *aux = new Node;
     aux->info = item;
     aux->next = this->top;
     this->top = aux;
@@ -65,7 +65,7 @@ T Stack<T>::pop()
 {
   if (!this->isEmpty())
   {
-    Node<T> *temp = this->top;
+    Node *temp = this->top;
     T info = this->top->info;
     this->top = this->top->next;
     delete temp;
@@ -80,7 +80,7 @@ T Stack<T>::pop()
 template <typename T>
 void Stack<T>::print() const
 {
-  Node<T> *currentNode = this->top;
+  Node *currentNode = this->top;
 
   cout << "top -> ";
   while (currentNode != nullptr)
@@ -88,5 +88,5 @@ void Stack<T>::print() const
     cout << currentNode->info << " ";
     currentNode = currentNode->next;
   }
-  cout << " <- tail" << endl;
+  cout << " <- bottom" << endl;
 }

@@ -2,17 +2,15 @@
 #define STACK_H
 
 template <typename T>
-struct Node
-{
-  T info;
-  Node *next = nullptr;
-};
-
-template <typename T>
 class Stack
 {
 private:
-  Node<T> *top;
+  struct Node
+  {
+    T info;
+    Node *next = nullptr;
+  };
+  Node *top;
 
 public:
   Stack();
